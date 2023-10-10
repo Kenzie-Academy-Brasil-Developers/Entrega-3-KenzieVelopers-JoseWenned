@@ -1,5 +1,5 @@
 
-import { Developer, createDeveloper, createDeveloperResult, createDeveloperRead } from "../interfaces/developer.interface";
+import { Developer, createDeveloper, createDeveloperResult, createDeveloperRead, createDeveloperUpdate } from "../interfaces/developer.interface";
 import format from "pg-format";
 import { client } from "../database";
 
@@ -42,3 +42,18 @@ export const readDeveloperIdService = async (developerId: string) : Promise<Deve
     return queryResult.rows[0];
 
 };
+
+export const updateDeveloperService = async (developerId: string, data: createDeveloperUpdate): Promise<Developer> => {
+
+    const queryFormat : string = format (
+        `UPDATE "developers" SET (%I) = ROW (%L) WHERE "id" = $1 RETURNING *;`,
+        Object.keys(data),
+        Object.values(data) 
+    );
+
+    const queryResult : createDeveloperResult = await client.query(queryFormat, [developerId]);
+
+    return queryResult.rows[0];
+
+};
+
