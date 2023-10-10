@@ -7,4 +7,4 @@ export const createDeveloperController = async (req: Request, res: Response) : P
     const developer : Developer = await createDeveloperService(req.body);
 
     return res.status(201).json(developer);
-} ;
+};

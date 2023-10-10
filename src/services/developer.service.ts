@@ -57,3 +57,8 @@ export const updateDeveloperService = async (developerId: string, data: createDe
 
 };
 
+export const deleteDeveloperService = async (developerId: string) : Promise<void> => {
+    const query : string = `DELETE FROM "developers" WHERE "id" = $1;`
+
+    await client.query(query, [developerId]);
+}
