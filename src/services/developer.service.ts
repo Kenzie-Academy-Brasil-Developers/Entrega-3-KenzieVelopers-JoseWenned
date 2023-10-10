@@ -22,7 +22,7 @@ export const readDeveloperService = async (): Promise<createDeveloperRead> => {
     return queryResult.rows;
 };
 
-export const readDeveloperIdService = async (developerId: string) : Promise<Developer> => {
+export const readDeveloperIdService = async (id: string) : Promise<Developer> => {
 
     const query : string = `
         SELECT 
@@ -30,20 +30,20 @@ export const readDeveloperIdService = async (developerId: string) : Promise<Deve
         "d"."name" AS "developerName",
         "d"."email" AS "developerEmail",
         "di"."developerSince" AS "developerInfoDeveloperSince",
-        "di"."preferredOS" AS "developerInfoPreferredOS",
+        "di"."preferredOS" AS "developerInfoPreferredOS"
         FROM "developers" AS "d"
         LEFT JOIN "developerInfos" AS "di"
         ON "di"."developerId" = "d". "id"
         WHERE "d". "id" = $1; 
     `
 
-    const queryResult : createDeveloperResult = await client.query(query, [developerId]);
+    const queryResult : createDeveloperResult = await client.query(query, [id]);
 
     return queryResult.rows[0];
 
 };
 
-export const updateDeveloperService = async (developerId: string, data: createDeveloperUpdate): Promise<Developer> => {
+export const updateDeveloperService = async (id: string, data: createDeveloperUpdate): Promise<Developer> => {
 
     const queryFormat : string = format (
         `UPDATE "developers" SET (%I) = ROW (%L) WHERE "id" = $1 RETURNING *;`,
@@ -51,14 +51,14 @@ export const updateDeveloperService = async (developerId: string, data: createDe
         Object.values(data) 
     );
 
-    const queryResult : createDeveloperResult = await client.query(queryFormat, [developerId]);
+    const queryResult : createDeveloperResult = await client.query(queryFormat, [id]);
 
     return queryResult.rows[0];
 
 };
 
-export const deleteDeveloperService = async (developerId: string) : Promise<void> => {
+export const deleteDeveloperService = async (id: string) : Promise<void> => {
     const query : string = `DELETE FROM "developers" WHERE "id" = $1;`
 
-    await client.query(query, [developerId]);
+    await client.query(query, [id]);
 }

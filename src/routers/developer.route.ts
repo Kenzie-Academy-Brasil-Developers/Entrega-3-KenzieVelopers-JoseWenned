@@ -11,5 +11,5 @@ developerRoutes.get("/", readDeveloperController);
 
 developerRoutes.use("/:id", verifyId);
 developerRoutes.get("/:id", readDeveloperIdController);
-developerRoutes.patch("/:id", updateDeveloperController);
+developerRoutes.patch("/:id", verifyEmail, updateDeveloperController);
 developerRoutes.delete("/:id", deleteDeveloperController);
