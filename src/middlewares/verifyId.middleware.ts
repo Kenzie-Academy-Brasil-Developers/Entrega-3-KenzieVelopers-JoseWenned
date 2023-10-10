@@ -5,11 +5,11 @@ import AppError from "../errors/App.error";
 
 export const verifyId = async (req: Request, res: Response, next:NextFunction): Promise<void> => {
 
-    const { developerId } = req.params;
+    const { id } = req.params;
 
     const queryResult: createDeveloperResult = await client.query (
         `SELECT * FROM "developers" WHERE "id" = $1;`,
-        [developerId]
+        [id]
     );
 
     if(!queryResult.rowCount){

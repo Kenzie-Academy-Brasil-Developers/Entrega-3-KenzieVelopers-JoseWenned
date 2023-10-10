@@ -16,19 +16,19 @@ export const readDeveloperController = async (req: Request, res: Response) : Pro
 }
 
 export const readDeveloperIdController = async (req: Request, res: Response) : Promise<Response> => {
-    const developer: Developer = await readDeveloperIdService(req.params.developerId);
+    const developer: Developer = await readDeveloperIdService(req.params.id);
 
     return res.status(200).json(developer);
 }
 
 export const updateDeveloperController = async (req: Request, res: Response) : Promise<Response> => {
-    const developer: Developer = await updateDeveloperService(req.params.developerId, req.body);
+    const developer: Developer = await updateDeveloperService(req.params.id, req.body);
 
     return res.status(200).json(developer);
 }
 
 export const deleteDeveloperController = async (req: Request, res: Response) : Promise<Response> => {
-    await deleteDeveloperService(req.params.developerId);
+    await deleteDeveloperService(req.params.id);
 
     return res.status(204).json();
 }
