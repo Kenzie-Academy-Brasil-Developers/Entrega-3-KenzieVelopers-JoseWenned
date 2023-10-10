@@ -12,7 +12,7 @@ export const verifyEmail = async (req:Request, res: Response, next: NextFunction
     const queryResult: createDeveloperResult = await client.query(query, [email]);
 
     if(queryResult.rowCount){
-        throw new AppError("Email already exists.", 409)
+        throw new AppError("Email already exists.", 409);
     };
 
     return next();
