@@ -14,13 +14,13 @@ const databaseConfig = (): ClientConfig => {
     return {
         user: process.env.DB_USER!,
         password: process.env.DB_PASSWORD!,
-        database: process.env.DB!,
+        database: process.env.DB_DATABASE!,
         host: process.env.DB_HOST!,
         port: Number(process.env.DB_PORT!),
     }
 }
 const client: Client = new Client(databaseConfig())
-
+console.log(databaseConfig())
 const startDatabase = async () : Promise<void> => {
     await client.connect()
     console.log('Database connected.')

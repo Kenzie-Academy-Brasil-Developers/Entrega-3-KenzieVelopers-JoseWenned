@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createDeveloperController } from "../controllers/developer.controller";
+import { verifyEmail } from "../middlewares/verifyEmail.middleware";
 
-export const developerRoutes : Router = Router()
+export const developerRoutes : Router = Router();
 
-developerRoutes.post("/", createDeveloperController)
+developerRoutes.post("/", verifyEmail, createDeveloperController);
