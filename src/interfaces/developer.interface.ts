@@ -11,3 +11,5 @@ export type createDeveloper = Omit<Developer, "id">;
 export type createDeveloperResult = QueryResult<Developer>;
 
 export type createDeveloperRead = Developer[];
+
+export type createDeveloperUpdate = Partial<Developer>;
