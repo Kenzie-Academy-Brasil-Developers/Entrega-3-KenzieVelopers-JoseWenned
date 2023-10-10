@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createDeveloperRead, Developer } from "../interfaces/developer.interface";
-import { createDeveloperService, readDeveloperService, readDeveloperIdService } from "../services/developer.service";
+import { createDeveloperService, readDeveloperService, readDeveloperIdService, updateDeveloperService } from "../services/developer.service";
 
 export const createDeveloperController = async (req: Request, res: Response) : Promise<Response> => {
 
@@ -17,6 +17,12 @@ export const readDeveloperController = async (req: Request, res: Response) : Pro
 
 export const readDeveloperIdController = async (req: Request, res: Response) : Promise<Response> => {
     const developer: Developer = await readDeveloperIdService(req.params.developerId);
+
+    return res.status(200).json(developer);
+}
+
+export const updateDeveloperController = async (req: Request, res: Response) : Promise<Response> => {
+    const developer: Developer = await updateDeveloperService(req.params.developerId, req.body);
 
     return res.status(200).json(developer);
 }
