@@ -13,7 +13,7 @@ export const createDeveloperService = async (data: createDeveloper) : Promise<De
     const queryResult : createDeveloperResult = await client.query(queryFormat);
 
     return queryResult.rows[0];
-}
+};
 
 export const readDeveloperService = async (): Promise<createDeveloperRead> => {
     const query: string = `SELECT * FROM "developers";`;
