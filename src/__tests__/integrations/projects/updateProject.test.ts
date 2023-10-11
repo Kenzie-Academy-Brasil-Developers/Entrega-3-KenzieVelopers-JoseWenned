@@ -1,6 +1,6 @@
 import { main } from '../../configs/configTestsDatabase'
 import supertest from 'supertest'
-import app from '../../../app'
+import  app  from '../../../app'
 import { developer1, developer2, developer3 } from '../../mocks/developers.mock'
 import {
     project1,
