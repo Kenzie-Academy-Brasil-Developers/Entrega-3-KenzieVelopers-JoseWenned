@@ -1,6 +1,6 @@
 import supertest from 'supertest'
 import { main } from '../../configs/configTestsDatabase'
-import app from '../../../app'
+import  app  from '../../../app'
 import { developer1, developer2, developer3 } from '../../mocks/developers.mock'
 import {
     developerInfo1,
