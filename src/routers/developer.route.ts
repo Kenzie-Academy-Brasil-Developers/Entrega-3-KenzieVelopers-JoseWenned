@@ -2,7 +2,6 @@ import { Router } from "express";
 import { createDeveloperController, readDeveloperIdController, updateDeveloperController, deleteDeveloperController, readDeveloperController } from "../controllers/developer.controller";
 import { verifyEmail } from "../middlewares/verifyEmail.middleware";
 import { verifyId } from "../middlewares/verifyId.middleware";
-import { deleteDeveloperService } from "../services/developer.service";
 
 export const developerRoutes : Router = Router();
 
