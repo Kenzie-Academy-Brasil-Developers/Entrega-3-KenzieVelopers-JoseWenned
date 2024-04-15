@@ -6,5 +6,5 @@ import { developerProjectRoutes } from "../routers/developerProject.route";
 export const routes: Router = Router();
 
 routes.use("/developers", developerRoutes);
-routes.use("/developers", developerInfosRoutes);
+routes.use("/developersInfor", developerInfosRoutes);
 routes.use("/projects", developerProjectRoutes);
