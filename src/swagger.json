@@ -1,0 +1,682 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "CRUD the velopers",
+        "description": "simple API for project control",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api-documentation",
+            "description": "Development env"
+        }
+    ],
+    "paths": {
+        "/developers": {
+            "get": {
+                "description": "Router responsible for searching all developers register.",
+                "tags": ["Router without parameter"],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": [
+                                            {
+                                                "id": 1,
+                                                "name": "Lucas Silva",
+                                                "email": "lucas@gmail.com"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "name": "Adriana Santiago",
+                                                "email": "adriana@gmail.com"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "name": "Pedro Nogueira",
+                                                "email": "pedro@gmail.com"
+                                                
+                                            },
+                                            {
+                                                "id": 4,
+                                                "name": "Alex Sousa",
+                                                "email": "alex@gmail.com"
+                                                
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            },
+            "post": {
+                "description": "Router responsible for register developers.",
+                "tags": ["Router without parameter"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateDeveloper"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref": "#components/schemas/ReadDeveloper"
+                                },
+                                "examples": {
+                                    "product": {
+                                        "value": {
+                                            "id": 1,
+                                            "name": "Pedro Nogueira",
+                                            "email": "pedro@gmail.com"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictEmailError": {
+                                        "value": {
+                                            "message": "Email already exists"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            }
+        },
+        "/developers/:id": {
+            "get": {
+                "description": "Router responsible for searching just developer information.",
+                "tags": ["Router with parameter"],
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "description": "The Id developer you want to search.",
+                        "name": "id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#components/schemas/ReadDeveloper"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                                "id": 1,
+                                                "name": "Pedro Nogueira",
+                                                "email": "pedro@gmail.com"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Not found developer."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            },
+            "patch": {
+                "description": "The router resposible update just developer information.",
+                "tags": ["Router with parameter"],
+                "parameters": [{
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "query",
+                    "description": "The Id developer you want to search.",
+                    "name": "id"
+                }],
+                "requestBody": {   
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateDeveloper"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successfully update developer",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/UpdateDeveloper"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "id": 1,
+                                            "name": "Pedro",
+                                            "email": "pedro@gmail.com" 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictEmailError": {
+                                        "value": {
+                                            "message": "Email already exists"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Not found developer."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            },
+            "delete": {
+                "description": "The router resposible delete just developer information.",
+                "tags": ["Router with parameter"],
+                "parameters": [{
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "query",
+                    "description": "The Id developer you want to search.",
+                    "name": "id"
+                }],
+                "responses": {
+                    "204": {
+                        "description": "No body content"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Not found developer."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            }
+        },
+        "/developers/:id/infos": {
+            "post": {
+                "description": "Router responsible for register information developer.",
+                "tags": ["Router with parameter"],
+                "parameters": [{
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "query",
+                    "description": "Developer ID.",
+                    "name": "id"
+                }],
+                "requestBody": {   
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/CreateDeveloperInfor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/ReadDeveloperInfor"
+                                },
+                                "examples": {
+                                    "product": {
+                                        "value": {
+                                            "id": 1,
+                                            "developerSince": "04/11/2025",
+                                            "preferredOS": "Linux",
+                                            "developerId": 2
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictOptionError": {
+                                        "value": {
+                                            "message": "Invalid os option."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictInforError": {
+                                        "value": {
+                                            "message": "Developer infos already exists."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            }
+        },
+        "/projects": {
+            "post": {
+                "description": "Router responsible for register projects.",
+                "tags": ["Router without parameter"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateDeveloperProject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/ReadDeveloperProject"
+                                },
+                                "examples": {
+                                    "product": {
+                                        "value": {
+                                            "id": 1,
+                                            "name": "Pedro Nogueira",
+                                            "repository": "Repository Project Auto Music",
+                                            "StartDate": "09/12/2025",
+                                            "endDate": "19/08/2035",
+                                            "developerId?": 3
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictNotFoundError": {
+                                        "value": {
+                                            "message": "Developer not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            }
+        },
+        "/projects/:id": {
+            "get": {
+                "description": "Router responsible for searching just projects information.",
+                "tags": ["Router with parameter"],
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "description": "The Id project you want to search.",
+                        "name": "id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#components/schemas/ReadDeveloperProject"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "id": 1,
+                                            "name": "Project Auto Music",
+                                            "repository": "Repository Project Auto Music",
+                                            "StartDate": "09/12/2025",
+                                            "endDate": "19/08/2035",
+                                            "developerId?": 3
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Not found project."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            },
+            "patch": {
+                "description": "The router resposible update just developer information.",
+                "tags": ["Router with parameter"],
+                "parameters": [{
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "query",
+                    "description": "Developer ID.",
+                    "name": "id"
+                }],
+                "requestBody": {   
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateDeveloperProject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successfully update project",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/UpdateDeveloperProject"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "id": 1,
+                                            "name": "Project Auto Music",
+                                            "repository": "Repository Project Auto Music",
+                                            "StartDate": "09/12/2025",
+                                            "endDate": "19/08/2035",
+                                            "developerId?": 3
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Not found project."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictEmailError": {
+                                        "value": {
+                                            "message": "Email already exists"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateDeveloper": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ReadAllDeveloper": {
+                "type": "array",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ReadDeveloper": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateDeveloper": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CreateDeveloperInfor": {
+                "type": "object",
+                "properties": {
+                    "developerSince": {
+                        "type": "string"
+                    },
+                    "preferredOS":{
+                        "type": "string"
+                    }
+                }
+            },
+            "ReadDeveloperInfor": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "developerSince": {
+                        "type": "string"
+                    },
+                    "preferredOS":{
+                        "type": "string"
+                    },
+                    "developerId": {
+                        "type": "number"
+                    }
+                }
+            },
+            "CreateDeveloperProject": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "repository": {
+                        "type": "string"
+                    },
+                    "startDate": {
+                        "type": "string"
+                    },
+                    "endDate": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ReadDeveloperProject": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "repository": {
+                        "type": "string"
+                    },
+                    "startDate": {
+                        "type": "string"
+                    },
+                    "endDate": {
+                        "type": "string"
+                    },
+                    "developerId": {
+                        "type": "number"
+                    }
+                }
+            },
+            "UpdateDeveloperProject": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "repository": {
+                        "type": "string"
+                    },
+                    "startDate": {
+                        "type": "string"
+                    },
+                    "endDate": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {"JWT": {}}
+    ]
+}
